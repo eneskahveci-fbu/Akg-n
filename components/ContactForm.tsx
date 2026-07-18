@@ -2,6 +2,7 @@
 
 import { useState, type FormEvent } from "react";
 import Link from "next/link";
+import { motion } from "framer-motion";
 import { Send, CheckCircle2 } from "lucide-react";
 
 const WHATSAPP_NUMBER = "905453547807";
@@ -79,8 +80,19 @@ export default function ContactForm() {
 
   if (isSubmitted) {
     return (
-      <div className="flex flex-col items-center justify-center rounded-2xl border border-navy-100 bg-white p-10 text-center shadow-soft">
-        <CheckCircle2 size={48} className="text-gold" />
+      <motion.div
+        initial={{ opacity: 0, y: 16, scale: 0.98 }}
+        animate={{ opacity: 1, y: 0, scale: 1 }}
+        transition={{ type: "spring", stiffness: 160, damping: 18, mass: 0.6 }}
+        className="flex flex-col items-center justify-center rounded-2xl border border-navy-100 bg-white p-10 text-center shadow-soft"
+      >
+        <motion.div
+          initial={{ scale: 0, rotate: -30 }}
+          animate={{ scale: 1, rotate: 0 }}
+          transition={{ type: "spring", stiffness: 260, damping: 16, delay: 0.1 }}
+        >
+          <CheckCircle2 size={48} className="text-gold" />
+        </motion.div>
         <h3 className="mt-4 font-serif text-xl font-bold text-navy">
           Mesajınız Alındı
         </h3>
@@ -88,14 +100,16 @@ export default function ContactForm() {
           Mesajınız WhatsApp&apos;a yönlendirildi. İlginiz için teşekkür
           ederim, en kısa sürede sizinle iletişime geçeceğim.
         </p>
-        <button
+        <motion.button
           type="button"
           onClick={() => setIsSubmitted(false)}
-          className="mt-6 rounded-full border border-navy/20 px-5 py-2 text-sm font-semibold text-navy transition hover:bg-navy-50"
+          whileHover={{ scale: 1.03 }}
+          whileTap={{ scale: 0.96 }}
+          className="mt-6 rounded-full border border-navy/20 px-5 py-2 text-sm font-semibold text-navy transition-colors hover:bg-navy-50"
         >
           Yeni Mesaj Gönder
-        </button>
-      </div>
+        </motion.button>
+      </motion.div>
     );
   }
 
