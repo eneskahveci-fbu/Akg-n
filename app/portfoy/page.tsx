@@ -96,7 +96,7 @@ export default function PortfoyPage() {
             })}
           </div>
 
-          <div className="relative">
+          <div className="relative ml-auto">
             <button
               type="button"
               onClick={() => setIsSortOpen((prev) => !prev)}
@@ -118,7 +118,7 @@ export default function PortfoyPage() {
                     animate={{ opacity: 1, y: 0, scale: 1 }}
                     exit={{ opacity: 0, y: -8, scale: 0.97 }}
                     transition={{ duration: 0.18, ease: [0.22, 1, 0.36, 1] }}
-                    className="absolute right-0 top-full z-50 mt-2 w-64 overflow-hidden rounded-2xl border border-navy-100 bg-white p-2 shadow-lg"
+                    className="absolute right-0 top-full z-50 mt-2 w-64 max-w-[calc(100vw-3rem)] overflow-hidden rounded-2xl border border-navy-100 bg-white p-2 shadow-lg"
                   >
                     {sortOptions.map((option) => (
                       <button
