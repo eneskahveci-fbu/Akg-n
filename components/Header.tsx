@@ -3,7 +3,8 @@
 import { useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
-import { Menu, X, ChevronDown, ArrowRight } from "lucide-react";
+import { Menu, X, ChevronDown, ArrowRight, MessageCircle } from "lucide-react";
+import { useWhatsAppWidget } from "@/components/WhatsAppWidgetContext";
 
 const menuItems: { label: string; href: string; expandable?: boolean }[] = [
   { label: "Portföyler", href: "/portfoy", expandable: true },
@@ -15,6 +16,7 @@ const menuItems: { label: string; href: string; expandable?: boolean }[] = [
 
 export default function Header() {
   const [isOpen, setIsOpen] = useState(false);
+  const { setOpen: setWhatsAppOpen } = useWhatsAppWidget();
 
   return (
     <>
@@ -52,16 +54,34 @@ export default function Header() {
             >
               İletişime Geç
             </Link>
+            <button
+              type="button"
+              aria-label="WhatsApp ile iletişime geç"
+              onClick={() => setWhatsAppOpen(true)}
+              className="flex h-11 w-11 items-center justify-center rounded-full bg-[#25D366] text-white shadow-soft transition hover:scale-105"
+            >
+              <MessageCircle size={20} fill="white" strokeWidth={0} />
+            </button>
           </nav>
 
-          <button
-            type="button"
-            aria-label="Menüyü aç"
-            onClick={() => setIsOpen(true)}
-            className="rounded-md p-2 text-navy transition hover:bg-navy-50 md:hidden"
-          >
-            <Menu size={26} strokeWidth={2.25} />
-          </button>
+          <div className="flex items-center gap-2 md:hidden">
+            <button
+              type="button"
+              aria-label="WhatsApp ile iletişime geç"
+              onClick={() => setWhatsAppOpen(true)}
+              className="flex h-10 w-10 items-center justify-center rounded-full bg-[#25D366] text-white shadow-soft transition hover:scale-105"
+            >
+              <MessageCircle size={19} fill="white" strokeWidth={0} />
+            </button>
+            <button
+              type="button"
+              aria-label="Menüyü aç"
+              onClick={() => setIsOpen(true)}
+              className="rounded-md p-2 text-navy transition hover:bg-navy-50"
+            >
+              <Menu size={26} strokeWidth={2.25} />
+            </button>
+          </div>
         </div>
       </header>
 

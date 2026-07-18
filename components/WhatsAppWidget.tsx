@@ -1,8 +1,8 @@
 "use client";
 
-import { useState } from "react";
 import Image from "next/image";
 import { MessageCircle, X, Key, Building2 } from "lucide-react";
+import { useWhatsAppWidget } from "@/components/WhatsAppWidgetContext";
 
 const WHATSAPP_NUMBER = "905453547807";
 
@@ -22,7 +22,7 @@ function waLink(message: string) {
 }
 
 export default function WhatsAppWidget() {
-  const [open, setOpen] = useState(false);
+  const { open, setOpen } = useWhatsAppWidget();
 
   return (
     <div className="fixed bottom-24 right-4 z-50 md:bottom-8 md:right-8">
@@ -70,7 +70,7 @@ export default function WhatsAppWidget() {
 
       <button
         type="button"
-        onClick={() => setOpen((prev) => !prev)}
+        onClick={() => setOpen(!open)}
         aria-label={open ? "WhatsApp menüsünü kapat" : "WhatsApp ile iletişime geç"}
         className={`ml-auto flex h-14 w-14 items-center justify-center rounded-full bg-[#25D366] text-white shadow-lg transition hover:scale-105 ${
           open ? "" : "animate-pulse-soft"

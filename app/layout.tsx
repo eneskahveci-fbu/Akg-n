@@ -5,6 +5,7 @@ import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import BottomNav from "@/components/BottomNav";
 import WhatsAppWidget from "@/components/WhatsAppWidget";
+import { WhatsAppWidgetProvider } from "@/components/WhatsAppWidgetContext";
 
 const playfair = Playfair_Display({
   subsets: ["latin"],
@@ -59,11 +60,13 @@ export default function RootLayout({
   return (
     <html lang="tr" className={`${playfair.variable} ${inter.variable} ${signature.variable}`}>
       <body className="min-h-screen bg-offwhite font-sans antialiased">
-        <Header />
-        <main className="pb-safe-nav">{children}</main>
-        <Footer />
-        <BottomNav />
-        <WhatsAppWidget />
+        <WhatsAppWidgetProvider>
+          <Header />
+          <main className="pb-safe-nav">{children}</main>
+          <Footer />
+          <BottomNav />
+          <WhatsAppWidget />
+        </WhatsAppWidgetProvider>
       </body>
     </html>
   );
