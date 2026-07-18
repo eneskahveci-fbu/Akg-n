@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Playfair_Display, Inter, Alex_Brush } from "next/font/google";
+import { Playfair_Display, Inter, Beau_Rivage } from "next/font/google";
 import "./globals.css";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
@@ -22,7 +22,7 @@ const inter = Inter({
   display: "swap",
 });
 
-const signature = Alex_Brush({
+const signature = Beau_Rivage({
   subsets: ["latin"],
   weight: ["400"],
   variable: "--font-signature",

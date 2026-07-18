@@ -2,7 +2,9 @@
 
 import { useState, type FormEvent } from "react";
 import Link from "next/link";
-import { ShieldCheck, Send, CheckCircle2 } from "lucide-react";
+import { Send, CheckCircle2 } from "lucide-react";
+
+const WHATSAPP_NUMBER = "905453547807";
 
 interface FormState {
   name: string;
@@ -35,7 +37,6 @@ function formatPhone(value: string): string {
 
 export default function ContactForm() {
   const [form, setForm] = useState<FormState>(initialState);
-  const [isHuman, setIsHuman] = useState(false);
   const [kvkkAccepted, setKvkkAccepted] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
 
@@ -43,9 +44,7 @@ export default function ContactForm() {
     form.name.trim().length > 1 &&
     form.subject !== "" &&
     form.phone.replace(/\D/g, "").length === 10 &&
-    form.email.trim().length > 4 &&
     form.message.trim().length > 5 &&
-    isHuman &&
     kvkkAccepted;
 
   const handleChange = (
@@ -59,11 +58,22 @@ export default function ContactForm() {
     event.preventDefault();
     if (!isFormValid) return;
 
-    // Not: Gerçek gönderim için burada bir API endpoint'ine (Formspree,
-    // Resend, kendi backend'iniz vb.) fetch/POST isteği eklenmelidir.
+    const lines = [
+      `Merhaba, ben ${form.name}.`,
+      `Konu: ${form.subject}`,
+      `Telefon: +90 ${form.phone}`,
+      form.email.trim() && `E-posta: ${form.email}`,
+      `Mesaj: ${form.message}`,
+    ].filter(Boolean);
+
+    window.open(
+      `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(lines.join("\n"))}`,
+      "_blank",
+      "noopener,noreferrer"
+    );
+
     setIsSubmitted(true);
     setForm(initialState);
-    setIsHuman(false);
     setKvkkAccepted(false);
   };
 
@@ -75,8 +85,8 @@ export default function ContactForm() {
           Mesajınız Alındı
         </h3>
         <p className="mt-2 max-w-sm text-sm text-navy/60">
-          İlginiz için teşekkür ederim. En kısa sürede sizinle iletişime
-          geçeceğim.
+          Mesajınız WhatsApp&apos;a yönlendirildi. İlginiz için teşekkür
+          ederim, en kısa sürede sizinle iletişime geçeceğim.
         </p>
         <button
           type="button"
@@ -157,8 +167,7 @@ export default function ContactForm() {
         <input
           id="email"
           type="email"
-          required
-          placeholder="Email Adresiniz *"
+          placeholder="Email Adresiniz (opsiyonel)"
           value={form.email}
           onChange={(e) => handleChange("email", e.target.value)}
           className="w-full rounded-full border border-navy-100 px-5 py-3.5 text-sm text-navy placeholder:text-navy/40"
@@ -179,26 +188,6 @@ export default function ContactForm() {
           className="w-full resize-none rounded-2xl border border-navy-100 px-5 py-4 text-sm text-navy placeholder:text-navy/40"
         />
       </div>
-
-      <label className="flex cursor-pointer items-center justify-between gap-3 rounded-xl border border-navy-100 bg-navy-50/50 px-4 py-3.5">
-        <span className="flex items-center gap-3">
-          <input
-            type="checkbox"
-            checked={isHuman}
-            onChange={(e) => setIsHuman(e.target.checked)}
-            className="h-5 w-5 rounded border-navy-100 text-navy accent-navy"
-          />
-          <span className="text-sm font-semibold text-navy">
-            Ben bir insanım
-          </span>
-        </span>
-        <span className="flex flex-col items-end text-right">
-          <ShieldCheck size={22} className="text-navy/50" />
-          <span className="text-[10px] text-navy/40">
-            Gizlilik · Şartlar
-          </span>
-        </span>
-      </label>
 
       <label className="flex cursor-pointer items-start gap-3 px-1">
         <input
