@@ -3,7 +3,7 @@
 import { useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
-import { Menu, X, ChevronDown, ArrowRight, MessageCircle } from "lucide-react";
+import { Menu, X, ChevronDown, ArrowRight } from "lucide-react";
 
 const menuItems: { label: string; href: string; expandable?: boolean }[] = [
   { label: "Portföyler", href: "/portfoy", expandable: true },
@@ -19,19 +19,19 @@ export default function Header() {
   return (
     <>
       <header className="sticky top-0 z-40 w-full border-b border-navy-100 bg-white/95 backdrop-blur">
-        <div className="mx-auto flex max-w-6xl items-center justify-between px-4 py-3 md:px-8">
+        <div className="mx-auto flex max-w-6xl items-center justify-between px-4 py-4 md:px-8 md:py-5">
           <Link href="/" className="flex items-center gap-3">
-            <div className="relative h-11 w-11 overflow-hidden rounded-full bg-navy shadow-soft">
+            <div className="relative h-14 w-14 overflow-hidden rounded-full bg-navy shadow-soft">
               <Image
                 src="/logo-coldwell-banker.png"
                 alt="Coldwell Banker Söz Bir Logo"
                 fill
-                sizes="44px"
+                sizes="56px"
                 className="object-contain p-1.5"
                 priority
               />
             </div>
-            <span className="font-serif text-lg font-bold text-navy">
+            <span className="font-serif text-xl font-bold text-navy">
               <span className="font-black">Akgün</span> Omuzubozlu
             </span>
           </Link>
@@ -131,16 +131,6 @@ export default function Header() {
             İletişime Geç
             <ArrowRight size={18} />
           </Link>
-
-          <a
-            href="https://wa.me/905453547807"
-            target="_blank"
-            rel="noopener noreferrer"
-            aria-label="WhatsApp ile iletişime geç"
-            className="fixed bottom-8 right-6 flex h-14 w-14 items-center justify-center rounded-full bg-navy text-white shadow-gold"
-          >
-            <MessageCircle size={26} fill="white" strokeWidth={0} />
-          </a>
         </div>
       </div>
     </>
